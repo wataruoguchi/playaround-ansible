@@ -7,3 +7,7 @@
         dest: /etc/bash.bashrc
         regexp: "set -o vi"
         line: "set -o vi"
+
+- include: vimrc.yml
+- include: ansible-galaxy.yml
+- include: docker.yml
