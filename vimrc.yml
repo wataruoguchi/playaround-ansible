@@ -1,0 +1,47 @@
+---
+- name: Setup vimrc
+  hosts: localhost
+  become: false
+  tasks:
+    - name: Remove .vimrc
+      file:
+        path: ~/.vimrc
+        state: absent
+
+    - name: Create .vimrc
+      file:
+        path: ~/.vimrc
+        state: touch
+
+    - name: Add Settings
+      blockinfile:
+        dest: ~/.vimrc
+        marker: "\" Settings"
+        content: |
+          syntax on
+          set number
+          set autoindent
+          set hlsearch
+          set expandtab
+          set tabstop=4
+          set shiftwidth=4
+
+    - name: Add Vundle - See https://github.com/VundleVim/Vundle.vim
+      blockinfile:
+        dest: ~/.vimrc
+        marker: "\" Vundle"
+        content: |
+          set nocompatible
+          filetype off
+          set rtp+=~/.vim/bundle/Vundle.vim
+          call vundle#begin()
+          Plugin 'VundleVim/Vundle.vim'
+        insertbefore: BOF
+
+    - name: Add vim-yaml
+      lineinfile:
+        dest: ~/.vimrc
+        line: "Plugin 'avakhov/vim-yaml'"
+
+    - name: Install plugins
+      shell: vi +PluginInstall +qall
