@@ -1,0 +1,9 @@
+---
+- name: Set vi mode
+  hosts: localhost
+  become: yes
+  tasks:
+    - lineinfile:
+        dest: /etc/bash.bashrc
+        regexp: "set -o vi"
+        line: "set -o vi"
