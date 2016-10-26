@@ -1,0 +1,6 @@
+---
+- name: Role test
+  hosts: localhost
+  become: false
+  roles:
+    - vimrc
